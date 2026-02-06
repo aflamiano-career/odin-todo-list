@@ -4,6 +4,7 @@ import storage from "./storageController.js";
 import data from "./dataController.js";
 
 export default class DisplayController {
+  // Render: Input Object
   static renderFormInput(id, name, text, type) {
     const listItem = document.createElement("li");
     const input = document.createElement("input");
@@ -20,6 +21,7 @@ export default class DisplayController {
     return listItem;
   }
 
+  // Render: Select Object
   static renderFormSelect(id, name, text, iterable) {
     const listItem = document.createElement("li");
     const select = document.createElement("select");
@@ -48,68 +50,32 @@ export default class DisplayController {
     return listItem;
   }
 
-  static renderTodoForm() {
-    const todoForm = document.createElement("form");
-    todoForm.setAttribute("method", "post");
-    todoForm.classList.add("form-todo");
+  // Render: Form Object
+  static renderForm(formClass, headerText, submitHandler, elements) {
+    const form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.classList.add(formClass);
+    const formHeader = document.createElement("h2");
+    formHeader.textContent = headerText;
+    form.appendChild(formHeader);
 
-    const todoFormList = document.createElement("ul");
-    todoForm.appendChild(todoFormList);
+    const formList = document.createElement("ul");
+    form.appendChild(formList);
 
-    todoFormList.appendChild(
-      DisplayController.renderFormInput(
-        "todo-title",
-        "todoTitle",
-        "Title",
-        "text",
-      ),
-    );
-
-    todoFormList.appendChild(
-      DisplayController.renderFormInput(
-        "todo-desc",
-        "todoDesc",
-        "Description",
-        "text",
-      ),
-    );
-
-    todoFormList.appendChild(
-      DisplayController.renderFormInput(
-        "todo-date",
-        "todoDate",
-        "Due date",
-        "date",
-      ),
-    );
-
-    todoFormList.appendChild(
-      DisplayController.renderFormSelect(
-        "todo-prio",
-        "todoPrio",
-        "Priority",
-        Todo.priorities,
-      ),
-    );
-
-    todoFormList.appendChild(
-      DisplayController.renderFormSelect(
-        "todo-project",
-        "todoProject",
-        "Project",
-        storage.loadProjects(),
-      ),
-    );
+    elements.map((input) => {
+      formList.appendChild(input);
+    });
 
     const btnSave = document.createElement("button");
     btnSave.setAttribute("type", "submit");
     btnSave.textContent = "Save";
-    todoForm.appendChild(btnSave);
+    form.appendChild(btnSave);
 
-    btnSave.addEventListener("click", data.handleSubmit);
-    return todoForm;
+    btnSave.addEventListener("click", submitHandler);
+    return form;
   }
 
+  // Render: Todo Card
   static renderTodo(todo) {
     const card = document.createElement("div");
     card.setAttribute("data-id", todo.id);
@@ -131,6 +97,7 @@ export default class DisplayController {
     return card;
   }
 
+  // Render: Todo List
   static renderTodoList(projectId) {
     const todos = storage.loadTodos(projectId);
     const todoList = document.createElement("ul");
@@ -140,8 +107,9 @@ export default class DisplayController {
     return todoList;
   }
 
+  // Render: Project Section
   static renderProject(project) {
-    const column = document.createElement("div");
+    const column = document.createElement("section");
     const projectName = document.createElement("h2");
     projectName.textContent = project.name;
     column.appendChild(projectName);
@@ -149,6 +117,7 @@ export default class DisplayController {
     return column;
   }
 
+  // Render: Project List
   static renderProjectList() {
     const projects = storage.loadProjects();
     const projectList = document.createElement("ul");

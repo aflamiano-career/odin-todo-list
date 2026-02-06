@@ -1,4 +1,5 @@
 import { defaultProject } from "./utils/init.js";
+import { projectFormInputs, todoFormInputs } from "./utils/formInputs.js";
 
 import "./reset.css";
 import "./styles.css";
@@ -8,7 +9,22 @@ import data from "./controllers/dataController.js";
 import display from "./controllers/displayController.js";
 
 const todoFormContainer = document.querySelector(".u-form-todo-container");
-todoFormContainer.appendChild(display.renderTodoForm());
+todoFormContainer.appendChild(
+  display.renderForm("form-todo", "New Todo", () => {}, todoFormInputs),
+);
+
+const projectFormContainer = document.querySelector(
+  ".u-form-project-container",
+);
+projectFormContainer.appendChild(
+  display.renderForm(
+    "form-project",
+    "New Project",
+    () => {},
+    projectFormInputs,
+  ),
+);
+
 const projectListContainer = document.querySelector(
   ".u-project-list-container",
 );
