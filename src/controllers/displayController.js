@@ -1,6 +1,6 @@
 import { Todo } from "../objects/Todo.js";
-import storage from "./storageController.js";
 
+import storage from "./storageController.js";
 import data from "./dataController.js";
 
 export default class DisplayController {

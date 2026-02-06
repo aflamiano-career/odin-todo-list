@@ -10,7 +10,7 @@ import display from "./controllers/displayController.js";
 
 const todoFormContainer = document.querySelector(".u-form-todo-container");
 todoFormContainer.appendChild(
-  display.renderForm("form-todo", "New Todo", () => {}, todoFormInputs),
+  display.renderForm("form-todo", "New Todo", data.handleTodo, todoFormInputs),
 );
 
 const projectFormContainer = document.querySelector(
@@ -20,7 +20,7 @@ projectFormContainer.appendChild(
   display.renderForm(
     "form-project",
     "New Project",
-    () => {},
+    data.handleProject,
     projectFormInputs,
   ),
 );

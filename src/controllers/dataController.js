@@ -1,3 +1,7 @@
+import { Todo } from "../objects/Todo.js";
+import { Project } from "../objects/Project.js";
+import storage from "./storageController.js";
+
 export default class DataController {
   static createTodo(inputObj) {}
 
@@ -7,10 +11,8 @@ export default class DataController {
     console.log(formInputs);
   }
 
-  static handleSubmit(e) {
-    if (e.target.getAttribute("type") === "submit") {
-      e.preventDefault();
-    }
+  static handleTodo(e) {
+    e.preventDefault();
     const inputs = Array.from(
       e.target.parentNode.querySelectorAll("input, select"),
     );
@@ -20,7 +22,28 @@ export default class DataController {
       return acc;
     }, {});
 
-    console.log(inputs);
-    console.log(inputObj);
+    storage.saveTodo(
+      new Todo(
+        inputObj.todoTitle,
+        inputObj.todoDesc,
+        inputObj.todoDate,
+        inputObj.todoPrio,
+      ),
+      inputObj.todoProject,
+    );
+  }
+
+  static handleProject(e) {
+    e.preventDefault();
+    const inputs = Array.from(
+      e.target.parentNode.querySelectorAll("input, select"),
+    );
+
+    const inputObj = inputs.reduce((acc, input) => {
+      acc[input.getAttribute("name")] = input.value;
+      return acc;
+    }, {});
+
+    storage.saveProject(new Project(inputObj.projectName));
   }
 }
