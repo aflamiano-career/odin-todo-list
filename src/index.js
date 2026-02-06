@@ -1,11 +1,15 @@
-import App from "./objects/App.js";
-import Project from "./objects/Project.js";
-import { todos } from "./dummy/todos.js";
+import { defaultProject } from "./utils/init.js";
 
-import "./utils/lists.js";
+import "./reset.css";
+import "./styles.css";
 
-const app = new App();
-const defaultProject = new Project("Default");
-app.addItem("projects", defaultProject);
+import storage from "./controllers/storageController.js";
+import data from "./controllers/dataController.js";
+import display from "./controllers/displayController.js";
 
-console.log(app.getItems("projects"));
+const todoFormContainer = document.querySelector(".u-form-todo-container");
+todoFormContainer.appendChild(display.renderTodoForm());
+const projectListContainer = document.querySelector(
+  ".u-project-list-container",
+);
+projectListContainer.appendChild(display.renderProjectList());

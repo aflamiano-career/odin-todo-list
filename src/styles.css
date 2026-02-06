@@ -1,0 +1,21 @@
+body {
+  background-color: rgb(95, 95, 95);
+}
+
+.card {
+  border: 1px solid #fff;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.priority--low {
+  background-color: yellow;
+}
+
+.priority--medium {
+  background-color: pink;
+}
+
+.priority--high {
+  background-color: red;
+}

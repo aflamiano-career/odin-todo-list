@@ -1,9 +1,25 @@
-export default class Todo {
-  constructor(title, description, dueDate, priority) {
-    this.id = crypto.randomUUID();
+class Todo {
+  constructor(title, desc, dueDate, priority) {
+    this._id = crypto.randomUUID();
     this.title = title;
-    this.description = description;
+    this.desc = desc;
     this.dueDate = dueDate;
     this.priority = priority;
   }
+
+  get id() {
+    return this._id;
+  }
+
+  set id(newId) {
+    this._id = newId;
+  }
+
+  static priorities = {
+    1: "Low",
+    2: "Medium",
+    3: "High",
+  };
 }
+
+export { Todo };
