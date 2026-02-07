@@ -11,7 +11,7 @@ export default class DataController {
     console.log(formInputs);
   }
 
-  static handleTodo(e) {
+  static handleTodoForm(e) {
     e.preventDefault();
     const inputs = Array.from(
       e.target.parentNode.querySelectorAll("input, select"),
@@ -33,7 +33,17 @@ export default class DataController {
     );
   }
 
-  static handleProject(e) {
+  static handleTodoCard(e) {
+    const todoId = e.target.parentNode.getAttribute("data-id");
+    const projectId =
+      e.target.parentElement.parentElement.getAttribute("data-id");
+    const project = storage.loadProject(projectId);
+    project.removeItem("todos", todoId);
+    storage.saveProject(project);
+    localStorage.removeItem(todoId);
+  }
+
+  static handleProjectForm(e) {
     e.preventDefault();
     const inputs = Array.from(
       e.target.parentNode.querySelectorAll("input, select"),

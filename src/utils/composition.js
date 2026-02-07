@@ -12,8 +12,10 @@ export const canRemoveItem = {
     if (!Array.isArray(this[prop])) {
       throw new Error("The property you provided is not an array");
     }
-    let itemIndex = this[prop].findIndex((item) => item.id === itemId);
-    if (itemIndex > 0) {
+    const itemIndex = this[prop].findIndex((item) => {
+      return item === itemId;
+    });
+    if (itemIndex !== -1) {
       this[prop].splice(itemIndex, 1);
     }
   },

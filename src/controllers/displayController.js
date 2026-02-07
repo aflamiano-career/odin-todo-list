@@ -80,6 +80,9 @@ export default class DisplayController {
     const card = document.createElement("div");
     card.setAttribute("data-id", todo.id);
     card.classList.add("card");
+    const btnDelete = document.createElement("button");
+    btnDelete.setAttribute("type", "button");
+    btnDelete.textContent = "X";
     const title = document.createElement("h2");
     title.textContent = todo.title;
     const desc = document.createElement("p");
@@ -90,9 +93,12 @@ export default class DisplayController {
     const priority = `priority--${Todo.priorities[todo.priority].toLowerCase()}`;
 
     card.classList.add(priority);
+    card.appendChild(btnDelete);
     card.appendChild(title);
     card.appendChild(desc);
     card.appendChild(date);
+
+    btnDelete.addEventListener("click", data.handleTodoCard);
 
     return card;
   }
@@ -101,6 +107,7 @@ export default class DisplayController {
   static renderTodoList(projectId) {
     const todos = storage.loadTodos(projectId);
     const todoList = document.createElement("ul");
+    todoList.setAttribute("data-id", projectId);
     todos.forEach((todo) =>
       todoList.appendChild(DisplayController.renderTodo(todo)),
     );
