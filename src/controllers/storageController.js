@@ -13,6 +13,17 @@ export default class StorageController {
     localStorage.setItem(project.id, JSON.stringify(project));
   }
 
+  static removeProject(id) {
+    const projects = JSON.parse(localStorage.getItem("Projects"));
+    const itemIndex = projects.findIndex((item) => {
+      return item === id;
+    });
+    if (itemIndex !== -1) {
+      projects.splice(itemIndex, 1);
+    }
+    localStorage.setItem("Projects", JSON.stringify(projects));
+  }
+
   static loadProject(id) {
     if (!localStorage.getItem(id)) {
       console.log(`Project with id: ${id} does not exist.`);

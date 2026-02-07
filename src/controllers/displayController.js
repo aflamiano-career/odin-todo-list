@@ -119,8 +119,26 @@ export default class DisplayController {
     const column = document.createElement("section");
     const projectName = document.createElement("h2");
     projectName.textContent = project.name;
+    const btnDelete = document.createElement("button");
+    if (project.name !== "Default") {
+      btnDelete.setAttribute("type", "button");
+      btnDelete.textContent = "X";
+      column.appendChild(btnDelete);
+      btnDelete.addEventListener("click", (e) => {
+        if (project.name === "Default") {
+          return;
+        }
+        const todoIds = project.getItems("todos");
+        storage.removeProject(project.id);
+        todoIds.forEach((id) => {
+          localStorage.removeItem(id);
+        });
+        localStorage.removeItem(project.id);
+      });
+    }
     column.appendChild(projectName);
     column.appendChild(DisplayController.renderTodoList(project.id));
+
     return column;
   }
 

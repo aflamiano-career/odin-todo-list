@@ -4,7 +4,6 @@ import { projectFormInputs, todoFormInputs } from "./utils/formInputs.js";
 import "./reset.css";
 import "./styles.css";
 
-import storage from "./controllers/storageController.js";
 import data from "./controllers/dataController.js";
 import display from "./controllers/displayController.js";
 
